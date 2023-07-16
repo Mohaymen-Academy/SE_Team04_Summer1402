@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class FileReader {
     private static final String dataSetPath= "/Phase01Project1/SoftwareBooksDataset";
-    public Map<String,String> getFileDataWithFileName() {
+    public static Map<String,String> getFileDataWithFileName() {
         Map<String ,String> books = new HashMap<>();
         try {
             Path path = Path.of("").toAbsolutePath();

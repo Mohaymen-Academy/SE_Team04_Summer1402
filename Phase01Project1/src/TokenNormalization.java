@@ -1,5 +1,5 @@
 public class TokenNormalization {
-    final String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]"};
+    final String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]","'"};
     final String[] uselessWords = {"i","the","we","is","and","an","a"};
     public String makeNormalize(String token){
         token = token.toLowerCase();
@@ -12,5 +12,10 @@ public class TokenNormalization {
             }
         }
         return token;
+    }
+
+    public String makeNormalizeAndStem(String token){
+        PorterStemmer porterStemmer = new PorterStemmer();
+        return porterStemmer.stemWord(this.makeNormalize(token));
     }
 }

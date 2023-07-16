@@ -1,9 +1,11 @@
-import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        FileReader fileReader = new FileReader();
-        Map<String ,String> books;
-        books = fileReader.getFileDataWithFileName();
+        Scanner scanner = new Scanner(System.in);
+        String inputQuery = scanner.nextLine();
+        TokenNormalization tokenNormalization = new TokenNormalization();
+        inputQuery = tokenNormalization.makeNormalizeAndStem(inputQuery);
+        InvertedIndex.Search(inputQuery);
     }
 }
