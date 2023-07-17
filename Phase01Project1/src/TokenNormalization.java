@@ -1,5 +1,5 @@
 public class TokenNormalization {
-    final String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]","'"};
+    final String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]","'",")","(","_"};
     final String[] uselessWords = {"i","the","we","is","and","an","a"};
     public String makeNormalize(String token){
         token = token.toLowerCase();
