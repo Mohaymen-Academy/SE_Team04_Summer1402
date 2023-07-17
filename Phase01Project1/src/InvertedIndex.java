@@ -18,7 +18,7 @@ public class InvertedIndex {
                         words.get(word).add(bookName);
                     }
                 } else {
-                    words.put(word, new ArrayList<String>(Arrays.asList(bookName)));
+                    words.put(word, new ArrayList<>(Arrays.asList(bookName)));
                 }
             }
         }
