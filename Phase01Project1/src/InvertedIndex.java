@@ -7,7 +7,7 @@ public class InvertedIndex {
     private TokenNormalization tokenNormalization;
 
     InvertedIndex(){
-        books = FileReader.getFileDataWithFileName();
+        books = TxtFileReader.getFileDataWithFileName();
         bookWords =  new HashMap<>();
         tokenNormalization = new TokenNormalization();
         this.prepareBooksWords();
