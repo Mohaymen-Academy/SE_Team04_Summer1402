@@ -17,7 +17,7 @@ public class TxtFileReader implements FileReader{
             myReader.close();
             book = new Book(file.getName(),text.toString());
         } catch (Exception e) {
-            System.out.println("An error occurred.");
+            System.out.println("Interrupted file");
             e.printStackTrace();
         }
         return book;
@@ -41,7 +41,7 @@ public class TxtFileReader implements FileReader{
                 documents.add(new Book(file.getName().substring(0,file.getName().length()-4),text.toString()));
             }
         } catch (Exception e) {
-            System.out.println("An error occurred.");
+            System.out.println("Interrupted file");
             e.printStackTrace();
         }
         return documents;

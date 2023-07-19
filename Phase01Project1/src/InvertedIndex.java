@@ -1,3 +1,4 @@
+import javax.management.InvalidAttributeValueException;
 import java.util.*;
 
 public class InvertedIndex {
@@ -5,22 +6,13 @@ public class InvertedIndex {
     private ArrayList<Document> documents;
     private Map<String, ArrayList<Document>> wordDocuments;
     private TokenNormalization tokenNormalization;
-    private ArrayList<String>highPriorityWords;
-    private ArrayList<String>lowPriorityWords;
-    private ArrayList<String>redPriorityWords;
+    private SearchQuery searchQuery;
 
-    public InvertedIndex(){
+    public InvertedIndex(SearchQuery searchQuery){
         documents = new ArrayList<>();
         wordDocuments =  new HashMap<>();
-        tokenNormalization = new TokenNormalization();
-        highPriorityWords = new ArrayList<>();
-        lowPriorityWords = new ArrayList<>();
-        redPriorityWords = new ArrayList<>();
-    }
-
-    public InvertedIndex(TokenNormalization tokenNormalization){
-        this();
-        this.tokenNormalization = tokenNormalization;
+        this.searchQuery = searchQuery;
+        this.tokenNormalization = searchQuery.tokenNormalization;
     }
     public void extractDocument(String folderPath) {
         this.documents = new TxtFileReader().readFiles(folderPath);
@@ -39,38 +31,24 @@ public class InvertedIndex {
         }
     }
 
-    public void fillPriorityWordsList(String query){
-        for (String queryWord : query.split(" "))
-        {
-            switch (queryWord.charAt(0)) {
-                case '+' -> lowPriorityWords.add(tokenNormalization.makeNormalizeAndStem(queryWord.substring(1)));
-                case '-' -> redPriorityWords.add(tokenNormalization.makeNormalizeAndStem(queryWord.substring(1)));
-                default -> highPriorityWords.add(tokenNormalization.makeNormalizeAndStem(queryWord));
-            }
-        }
-    }
-
     private boolean isValidDocument(){
         return (documents != null && !documents.isEmpty());
     }
 
-    public HashSet<Document> advancedSearch(String query, String delimiter){
+    public HashSet<Document> advancedSearch(String delimiter) throws InvalidAttributeValueException {
         if (!isValidDocument()){
-            System.out.println("Document not preset");
-            return new HashSet<>();
+            throw new InvalidAttributeValueException();
         }
         fillWordDocument(delimiter);
-        fillPriorityWordsList(query);
-
         ArrayList<Document> result = new ArrayList<>();
 
-        if(!highPriorityWords.isEmpty()){
+        if(!searchQuery.highPriorityWords.isEmpty()){
             result = this.manageHighPriorityWords();
         }
-        if(!lowPriorityWords.isEmpty()){
+        if(!searchQuery.lowPriorityWords.isEmpty()){
             result.retainAll(this.manageLowPriorityWords());
         }
-        if(!redPriorityWords.isEmpty()){
+        if(!searchQuery.redPriorityWords.isEmpty()){
             for(Document documentToDelete : this.manageRedPriorityWords()){
                 result.removeIf(resultDocument -> resultDocument.equals(documentToDelete));
             }
@@ -80,11 +58,11 @@ public class InvertedIndex {
 
     private ArrayList<Document> manageHighPriorityWords(){
         ArrayList<Document> result = new ArrayList<>();
-        if (!wordDocuments.containsKey(highPriorityWords.get(0))){
+        if (!wordDocuments.containsKey(searchQuery.highPriorityWords.get(0))){
             return result;
         }
-        result = wordDocuments.get(highPriorityWords.get(0));
-        for (String highPriorityWord : highPriorityWords) {
+        result = wordDocuments.get(searchQuery.highPriorityWords.get(0));
+        for (String highPriorityWord : searchQuery.highPriorityWords) {
             if (wordDocuments.containsKey(highPriorityWord)) {
                 result.retainAll(wordDocuments.get(highPriorityWord));
             }
@@ -97,7 +75,7 @@ public class InvertedIndex {
 
     private ArrayList<Document> manageLowPriorityWords(){
         ArrayList<Document>result = new ArrayList<>();
-        for (String lowPriorityWord : lowPriorityWords){
+        for (String lowPriorityWord : searchQuery.lowPriorityWords){
             if (wordDocuments.containsKey(lowPriorityWord)){
                 result.addAll(wordDocuments.get(lowPriorityWord));
             }
@@ -107,7 +85,7 @@ public class InvertedIndex {
 
     private ArrayList<Document> manageRedPriorityWords(){
         ArrayList<Document>result = new ArrayList<>();
-        for (String redPriorityWord : redPriorityWords){
+        for (String redPriorityWord : searchQuery.redPriorityWords){
             if (wordDocuments.containsKey(redPriorityWord)){
                 result.addAll(wordDocuments.get(redPriorityWord));
             }

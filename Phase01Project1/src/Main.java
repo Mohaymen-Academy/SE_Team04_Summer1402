@@ -3,24 +3,29 @@ import java.util.Scanner;
 
 public class Main {
 
-    private final static String folderPath = "/Users/hosseinb/Desktop/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
-    private static HashSet<Document> result;
-    private static InvertedIndex invertedIndex;
-    private static String inputQuery;
+    private final static String folderPath = "/home/amirack/Code/Java/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
+    private static HashSet<Document> result = new HashSet<>();
+    private static SearchQuery searchQuery;
 
-    public static void preprocess(){
-        invertedIndex =  new InvertedIndex();
-        invertedIndex.extractDocument(folderPath);
-    }
-
-    public static void getInput(){
-        System.out.println("Folder path : ");
+    public static void getInput() {
+        System.out.println("Search query : ");
         Scanner scanner = new Scanner(System.in);
-        inputQuery = scanner.nextLine();
+        String inputQuery = scanner.nextLine();
+        if (inputQuery.equals("")) {
+            System.out.println("No Input Query");
+            System.exit(0);
+        }
+        searchQuery = new SearchQuery(inputQuery);
     }
 
     public static void setSearchResult(){
-        result = invertedIndex.advancedSearch(inputQuery, " \n");
+        InvertedIndex invertedIndex = new InvertedIndex(searchQuery);
+        invertedIndex.extractDocument(folderPath);
+        try {
+            result = invertedIndex.advancedSearch(" \n");
+        }catch (Exception e){
+            System.out.println("No Document preset");
+        }
     }
     public static void printSearchResult(){
         for(Document doc : result){
@@ -31,7 +36,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        preprocess();
         getInput();
         setSearchResult();
         printSearchResult();
