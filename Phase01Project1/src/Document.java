@@ -12,6 +12,10 @@ public abstract class Document{
         return text.contains(word);
     }
 
+    public boolean equals(Document document) {
+        return (this.name.equals(document.name));
+    }
+
     public String getName() {
         return name;
     }

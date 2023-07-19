@@ -2,93 +2,120 @@ import java.util.*;
 
 public class InvertedIndex {
 
-    private Map<String, String> books;
-    private Map<String, ArrayList<String>> bookWords;
+    private ArrayList<Document> documents;
+    private Map<String, ArrayList<Document>> wordDocuments;
     private TokenNormalization tokenNormalization;
+    private ArrayList<String>highPriorityWords;
+    private ArrayList<String>lowPriorityWords;
+    private ArrayList<String>redPriorityWords;
 
-    InvertedIndex(){
-        books = TxtFileReader.getFileDataWithFileName();
-        bookWords =  new HashMap<>();
+    public InvertedIndex(){
+        documents = new ArrayList<>();
+        wordDocuments =  new HashMap<>();
         tokenNormalization = new TokenNormalization();
-        this.prepareBooksWords();
+        highPriorityWords = new ArrayList<>();
+        lowPriorityWords = new ArrayList<>();
+        redPriorityWords = new ArrayList<>();
     }
-    private void prepareBooksWords() {
-        for (String bookName : books.keySet()) {
-            String[] currentBookWords = books.get(bookName).split("[ \\n]", -1);
-            for (String word : currentBookWords) {
-                word = tokenNormalization.makeNormalizeAndStem(word);
-                if (this.bookWords.containsKey(word)) {
-                    if (!this.bookWords.get(word).contains(bookName)) {
-                        this.bookWords.get(word).add(bookName);
-                    }
-                } else {
-                    this.bookWords.put(word, new ArrayList<>(Arrays.asList(bookName)));
-                }
+    public void extractDocument(String folderPath) {
+        this.documents = new TxtFileReader().readFiles(folderPath);
+    }
+
+    private void fillWordDocument(String delimiter){
+        Tokenizer tokenizer = new Tokenizer();
+        for(Document document : documents){
+            for(String documentWord : tokenizer.tokenize(document.getText(), delimiter)){
+                documentWord = tokenNormalization.makeNormalizeAndStem(documentWord);
+                if(!wordDocuments.containsKey(documentWord))
+                    wordDocuments.put(documentWord, new ArrayList<>());
+                if(!wordDocuments.get(documentWord).contains(document))
+                    wordDocuments.get(documentWord).add(document);
             }
         }
     }
 
-    public HashSet<String> multiSearch(String query){
-        ArrayList<String>highPriorityWords = new ArrayList<>();
-        ArrayList<String>lowPriorityWords = new ArrayList<>();
-        ArrayList<String>redPriorityWords = new ArrayList<>();
-        ArrayList<String>result = new ArrayList<>();
+    public void fillPriorityWordsList(String query){
         for (String queryWord : query.split(" "))
         {
             switch (queryWord.charAt(0)) {
-                case '+' -> lowPriorityWords.add(tokenNormalization.makeNormalizeAndStem(
-                        queryWord.substring(1)));
-                case '-' -> redPriorityWords.add(tokenNormalization.makeNormalizeAndStem(
-                        queryWord.substring(1)));
-                default -> highPriorityWords.add(tokenNormalization.makeNormalizeAndStem(
-                        queryWord));
+                case '+' -> lowPriorityWords.add(tokenNormalization.makeNormalizeAndStem(queryWord.substring(1)));
+                case '-' -> redPriorityWords.add(tokenNormalization.makeNormalizeAndStem(queryWord.substring(1)));
+                default -> highPriorityWords.add(tokenNormalization.makeNormalizeAndStem(queryWord));
             }
         }
+    }
+
+    private boolean isValidDocument(){
+        return (documents != null && !documents.isEmpty());
+    }
+
+    public HashSet<Document> advancedSearch(String query, String delimiter){
+        if (!isValidDocument()){
+            System.out.println("Document not preset");
+            return new HashSet<>();
+        }
+        fillWordDocument(delimiter);
+        fillPriorityWordsList(query);
+
+        ArrayList<Document> result = new ArrayList<>();
+
         if(!highPriorityWords.isEmpty()){
-            result = this.highPriorityWords(highPriorityWords);
+            result = this.manageHighPriorityWords();
         }
         if(!lowPriorityWords.isEmpty()){
-            result.retainAll(this.lowPriorityWords(lowPriorityWords));
+            result.retainAll(this.manageLowPriorityWords());
         }
         if(!redPriorityWords.isEmpty()){
-            for(String bookNameToDelete : this.redPriorityWords(redPriorityWords)){
-                result.remove(bookNameToDelete);
+            for(Document documentToDelete : this.manageRedPriorityWords()){
+                result.removeIf(resultDocument -> resultDocument.equals(documentToDelete));
             }
         }
         return new HashSet<>(result);
     }
 
-    private ArrayList<String> highPriorityWords(ArrayList<String> highPriorityWords){
-        ArrayList<String>result = new ArrayList<>();
-        if (!bookWords.containsKey(highPriorityWords.get(0))){
+    private ArrayList<Document> manageHighPriorityWords(){
+        ArrayList<Document> result = new ArrayList<>();
+        if (!wordDocuments.containsKey(highPriorityWords.get(0))){
             return result;
         }
-        result = bookWords.get(highPriorityWords.get(0));
+        result = wordDocuments.get(highPriorityWords.get(0));
         for (String highPriorityWord : highPriorityWords) {
-            if (bookWords.containsKey(highPriorityWord)) {
-                result.retainAll(bookWords.get(highPriorityWord));
+            if (wordDocuments.containsKey(highPriorityWord)) {
+                result.retainAll(wordDocuments.get(highPriorityWord));
+            }
+            else {
+                return new ArrayList<>();
             }
         }
         return result;
     }
 
-    private ArrayList<String> lowPriorityWords(ArrayList<String> lowPriorityWords){
-        ArrayList<String>result = new ArrayList<>();
+    private ArrayList<Document> manageLowPriorityWords(){
+        ArrayList<Document>result = new ArrayList<>();
         for (String lowPriorityWord : lowPriorityWords){
-            if (bookWords.containsKey(lowPriorityWord)){
-                result.addAll(bookWords.get(lowPriorityWord));
+            if (wordDocuments.containsKey(lowPriorityWord)){
+                result.addAll(wordDocuments.get(lowPriorityWord));
             }
         }
         return result;
     }
 
-    private ArrayList<String> redPriorityWords(ArrayList<String> redPriorityWords){
-        ArrayList<String>result = new ArrayList<>();
+    private ArrayList<Document> manageRedPriorityWords(){
+        ArrayList<Document>result = new ArrayList<>();
         for (String redPriorityWord : redPriorityWords){
-            if (bookWords.containsKey(redPriorityWord)){
-                result.addAll(bookWords.get(redPriorityWord));
+            if (wordDocuments.containsKey(redPriorityWord)){
+                result.addAll(wordDocuments.get(redPriorityWord));
             }
         }
         return result;
+    }
+
+
+    public ArrayList<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(ArrayList<Document> documents) {
+        this.documents = documents;
     }
 }
