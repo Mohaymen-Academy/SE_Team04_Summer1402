@@ -10,6 +10,9 @@ public class Main {
         invertedIndex.extractDocument(folderPath);
         HashSet<Document> result;
         result = invertedIndex.advancedSearch(inputQuery, " \n");
+        if(result.isEmpty()){
+            System.out.println("No result found");
+        }
         for(Document doc : result){
             System.out.println(doc.getName());
         }

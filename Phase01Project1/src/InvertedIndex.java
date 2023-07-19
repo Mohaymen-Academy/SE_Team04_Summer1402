@@ -17,6 +17,11 @@ public class InvertedIndex {
         lowPriorityWords = new ArrayList<>();
         redPriorityWords = new ArrayList<>();
     }
+
+    public InvertedIndex(TokenNormalization tokenNormalization){
+        this();
+        this.tokenNormalization = tokenNormalization;
+    }
     public void extractDocument(String folderPath) {
         this.documents = new TxtFileReader().readFiles(folderPath);
     }
