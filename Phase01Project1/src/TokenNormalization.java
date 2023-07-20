@@ -1,8 +1,10 @@
-public class TokenNormalization {
+public class TokenNormalization implements Normalizable{
     private String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]","'",")","(","_"};
     private String[] uselessWords = {"i","the","we","is","and","an","a"};
-    
-    public String makeNormalize(String token){
+
+
+    @Override
+    public String makeNormalize(String token) {
         token = token.toLowerCase();
         for (String target : characterToDelete){
             token = token.replace(target,"");
@@ -20,11 +22,5 @@ public class TokenNormalization {
         return porterStemmer.stemWord(this.makeNormalize(token));
     }
 
-    public void setCharacterToDelete(String[] characterToDelete) {
-        this.characterToDelete = characterToDelete;
-    }
 
-    public void setUselessWords(String[] uselessWords) {
-        this.uselessWords = uselessWords;
-    }
 }
