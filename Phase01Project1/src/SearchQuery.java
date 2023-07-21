@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class SearchQuery {
     public ArrayList<String> highPriorityWords = new ArrayList<>();
-    public ArrayList<String>lowPriorityWords = new ArrayList<>();
-    public ArrayList<String>redPriorityWords = new ArrayList<>();
+    public ArrayList<String> lowPriorityWords = new ArrayList<>();
+    public ArrayList<String> redPriorityWords = new ArrayList<>();
 
     public TokenNormalization tokenNormalization;
 
