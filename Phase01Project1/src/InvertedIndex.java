@@ -1,5 +1,6 @@
 import Documents.Document;
-import Normalizer.TokenNormalization;
+import Normalizer.Normalizable;
+import Stemmer.PorterStemmer;
 import Tokenize.Tokenizer;
 
 import java.security.InvalidParameterException;
@@ -9,8 +10,9 @@ public class InvertedIndex {
 
     private ArrayList<Document> documents;
     private Map<String, ArrayList<Document>> wordDocuments;
-    private TokenNormalization tokenNormalization;
+    private Normalizable tokenNormalization;
     private SearchQuery searchQuery;
+    private PorterStemmer porterStemmer = new PorterStemmer();
 
     public InvertedIndex(SearchQuery searchQuery, ArrayList<Document> documents){
         wordDocuments =  new HashMap<>();
@@ -26,7 +28,8 @@ public class InvertedIndex {
         Tokenizer tokenizer = new Tokenizer();
         for(Document document : documents){
             for(String documentWord : tokenizer.tokenize(document.getText(), delimiter)){
-                documentWord = tokenNormalization.makeNormalizeAndStem(documentWord);
+                documentWord = tokenNormalization.makeNormalize(documentWord);
+                documentWord = porterStemmer.stemWord(documentWord);
                 if(!wordDocuments.containsKey(documentWord))
                     wordDocuments.put(documentWord, new ArrayList<>());
                 if(!wordDocuments.get(documentWord).contains(document))
