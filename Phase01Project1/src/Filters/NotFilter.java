@@ -1,11 +1,11 @@
-package SearchFilters;
+package Filters;
 
 import java.util.ArrayList;
 import java.util.Map;
 import Documents.Document;
 
-public class NotSearchFilter extends SearchFilter {
-    public NotSearchFilter(ArrayList<String> filterWords, Map<String, ArrayList<Document>> wordDocuments, ArrayList<Document> resultDocuments){
+public class NotFilter extends Filter {
+    public NotFilter(ArrayList<String> filterWords, Map<String, ArrayList<Document>> wordDocuments, ArrayList<Document> resultDocuments){
         super(filterWords, wordDocuments, resultDocuments);
     }
 

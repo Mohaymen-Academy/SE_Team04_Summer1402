@@ -1,12 +1,12 @@
-package SearchFilters;
+package Filters;
 
 import java.util.ArrayList;
 import java.util.Map;
 import Documents.Document;
 
-public class OrSearchFilter extends SearchFilter {
+public class OrFilter extends Filter {
 
-    public OrSearchFilter(ArrayList<String> filterWords, Map<String, ArrayList<Document>> wordDocuments, ArrayList<Document> resultDocuments){
+    public OrFilter(ArrayList<String> filterWords, Map<String, ArrayList<Document>> wordDocuments, ArrayList<Document> resultDocuments){
         super(filterWords, wordDocuments, resultDocuments);
     }
     @Override

@@ -1,8 +1,8 @@
 import Documents.Document;
 import FileReaders.TxtFileReader;
-import SearchFilters.AndSearchFilter;
-import SearchFilters.NotSearchFilter;
-import SearchFilters.OrSearchFilter;
+import Filters.AndFilter;
+import Filters.NotFilter;
+import Filters.OrFilter;
 import Tokenize.Tokenizer;
 
 import java.util.ArrayList;
@@ -34,11 +34,11 @@ public class Main {
             System.out.println("No Document");
             System.exit(0);
         }
-        AndSearchFilter andSearchFilter = new AndSearchFilter(searchQuery.highPriorityWords, invertedIndex.getWordDocuments(), invertedIndex.getDocuments());
+        AndFilter andSearchFilter = new AndFilter(searchQuery.highPriorityWords, invertedIndex.getWordDocuments(), invertedIndex.getDocuments());
         result = andSearchFilter.applyToResult();
-        OrSearchFilter orSearchFilter = new OrSearchFilter(searchQuery.lowPriorityWords, invertedIndex.getWordDocuments(), result);
+        OrFilter orSearchFilter = new OrFilter(searchQuery.lowPriorityWords, invertedIndex.getWordDocuments(), result);
         result = orSearchFilter.applyToResult();
-        NotSearchFilter notSearchFilter = new NotSearchFilter(searchQuery.redPriorityWords, invertedIndex.getWordDocuments(), result);
+        NotFilter notSearchFilter = new NotFilter(searchQuery.redPriorityWords, invertedIndex.getWordDocuments(), result);
         result = notSearchFilter.applyToResult();
     }
     public static void printSearchResult(){
