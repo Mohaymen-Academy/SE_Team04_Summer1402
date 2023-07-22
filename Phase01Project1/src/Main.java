@@ -3,13 +3,14 @@ import FileReaders.TxtFileReader;
 import SearchFilters.AndSearchFilter;
 import SearchFilters.NotSearchFilter;
 import SearchFilters.OrSearchFilter;
+import Tokenize.Tokenizer;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
-    private final static String folderPath = "/Users/hosseinb/Desktop/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
+    private final static String folderPath = "/home/amirack/Code/Java/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
     private static ArrayList<Document> result = new ArrayList<>();
     private static SearchQuery searchQuery;
 
@@ -26,7 +27,7 @@ public class Main {
 
     public static void setSearchResult(){
         TxtFileReader txtFileReader = new TxtFileReader();
-        InvertedIndex invertedIndex = new InvertedIndex(searchQuery, txtFileReader.readFiles(folderPath));
+        InvertedIndex invertedIndex = new InvertedIndex(searchQuery, txtFileReader.readFiles(folderPath), new Tokenizer());
         try {
             invertedIndex.fillWordDocument("\s\n");
         }catch (Exception e){

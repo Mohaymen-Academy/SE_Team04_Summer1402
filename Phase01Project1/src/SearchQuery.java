@@ -1,5 +1,5 @@
 import Normalizer.Normalizable;
-import Normalizer.TokenNormalization;
+import Normalizer.TokenNormalizationToLowerCase;
 import Stemmer.PorterStemmer;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class SearchQuery {
     }
 
     public SearchQuery(String  query){
-        this.tokenNormalization = new TokenNormalization();
+        this.tokenNormalization = new TokenNormalizationToLowerCase();
         this.fillPriorityWordsList(query);
     }
     private void fillPriorityWordsList(String query){
@@ -26,13 +26,13 @@ public class SearchQuery {
             switch (queryWord.charAt(0)) {
                 case '+' -> lowPriorityWords.add(
                         porterStemmer.stemWord(
-                                tokenNormalization.makeNormalize(queryWord.substring(1))));
+                                tokenNormalization.normalize(queryWord.substring(1))));
                 case '-' -> redPriorityWords.add(
                         porterStemmer.stemWord(
-                                tokenNormalization.makeNormalize(queryWord.substring(1))));
+                                tokenNormalization.normalize(queryWord.substring(1))));
                 default -> highPriorityWords.add(
                         porterStemmer.stemWord(
-                                tokenNormalization.makeNormalize(queryWord)));
+                                tokenNormalization.normalize(queryWord)));
             }
         }
     }
