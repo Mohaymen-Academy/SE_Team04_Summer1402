@@ -2,6 +2,7 @@ import Documents.Document;
 import Normalizer.TokenNormalization;
 import Tokenize.Tokenizer;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class InvertedIndex {
@@ -19,6 +20,9 @@ public class InvertedIndex {
     }
 
     public void fillWordDocument(String delimiter){
+        if (!isValidDocument()){
+            throw new InvalidParameterException();
+        }
         Tokenizer tokenizer = new Tokenizer();
         for(Document document : documents){
             for(String documentWord : tokenizer.tokenize(document.getText(), delimiter)){
