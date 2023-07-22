@@ -28,7 +28,7 @@ public class Main {
         TxtFileReader txtFileReader = new TxtFileReader();
         InvertedIndex invertedIndex = new InvertedIndex(searchQuery, txtFileReader.readFiles(folderPath));
         try {
-            invertedIndex.fillWordDocument(" \n");
+            invertedIndex.fillWordDocument("\s\n");
         }catch (Exception e){
             System.out.println("No Document");
             System.exit(0);
