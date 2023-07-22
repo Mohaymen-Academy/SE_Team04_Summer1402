@@ -1,5 +1,4 @@
 package Normalizer;
-import Stemmer.PorterStemmer;
 
 public class TokenNormalization implements Normalizable {
     private final String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]","'",")","(","_"};
@@ -18,10 +17,5 @@ public class TokenNormalization implements Normalizable {
             }
         }
         return token;
-    }
-
-    public String makeNormalizeAndStem(String token){
-        PorterStemmer porterStemmer = new PorterStemmer();
-        return porterStemmer.stemWord(this.makeNormalize(token));
     }
 }
