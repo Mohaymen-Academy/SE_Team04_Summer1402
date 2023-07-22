@@ -1,3 +1,5 @@
+import Normalizer.TokenNormalization;
+
 import java.util.ArrayList;
 
 public class SearchQuery {

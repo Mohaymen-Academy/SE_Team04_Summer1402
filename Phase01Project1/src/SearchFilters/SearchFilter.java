@@ -1,5 +1,8 @@
+package SearchFilters;
+
 import java.util.ArrayList;
 import java.util.Map;
+import Documents.Document;
 
 public abstract class SearchFilter {
 

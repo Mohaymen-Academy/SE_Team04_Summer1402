@@ -1,3 +1,7 @@
+package FileReaders;
+
+import Documents.Document;
+
 import java.util.ArrayList;
 
 public interface FileReader {

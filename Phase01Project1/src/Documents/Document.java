@@ -1,3 +1,4 @@
+package Documents;
 
 public abstract class Document{
     private String name;

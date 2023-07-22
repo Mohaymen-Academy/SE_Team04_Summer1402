@@ -1,7 +1,10 @@
+package SearchFilters;
+
 import java.util.ArrayList;
 import java.util.Map;
+import Documents.Document;
 
-public class AndSearchFilter extends SearchFilter{
+public class AndSearchFilter extends SearchFilter {
 
     public AndSearchFilter(ArrayList<String> filterWords, Map<String, ArrayList<Document>> wordDocuments, ArrayList<Document> resultDocuments){
         super(filterWords, wordDocuments, resultDocuments);

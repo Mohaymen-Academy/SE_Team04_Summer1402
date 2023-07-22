@@ -1,7 +1,9 @@
+package Tokenize;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Tokenizer implements Tokenizable{
+public class Tokenizer implements Tokenizable {
     @Override
     public ArrayList<String> tokenize(String text, String delimiter) {
         ArrayList<String> tokens = new ArrayList<>();

@@ -1,8 +1,13 @@
+package FileReaders;
+
+import Documents.Book;
+import Documents.Document;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TxtFileReader implements FileReader{
+public class TxtFileReader implements FileReader {
     @Override
     public Document readFile(String filePath) {
          Book book = null;

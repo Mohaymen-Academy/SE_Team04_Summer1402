@@ -1,4 +1,7 @@
-import javax.management.InvalidAttributeValueException;
+import Documents.Document;
+import Normalizer.TokenNormalization;
+import Tokenize.Tokenizer;
+
 import java.util.*;
 
 public class InvertedIndex {
@@ -31,9 +34,6 @@ public class InvertedIndex {
     private boolean isValidDocument(){
         return (documents != null && !documents.isEmpty());
     }
-
-
-
     public ArrayList<Document> getDocuments() {
         return documents;
     }

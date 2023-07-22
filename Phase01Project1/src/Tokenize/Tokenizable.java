@@ -1,3 +1,5 @@
+package Tokenize;
+
 import java.util.ArrayList;
 
 public interface Tokenizable {

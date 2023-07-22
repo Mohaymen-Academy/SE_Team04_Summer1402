@@ -1,6 +1,9 @@
-public class TokenNormalization implements Normalizable{
-    private String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]","'",")","(","_"};
-    private String[] uselessWords = {"i","the","we","is","and","an","a"};
+package Normalizer;
+import Stemmer.PorterStemmer;
+
+public class TokenNormalization implements Normalizable {
+    private final String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]","'",")","(","_"};
+    private final String[] uselessWords = {"i","the","we","is","and","an","a"};
 
 
     @Override
@@ -21,6 +24,4 @@ public class TokenNormalization implements Normalizable{
         PorterStemmer porterStemmer = new PorterStemmer();
         return porterStemmer.stemWord(this.makeNormalize(token));
     }
-
-
 }
