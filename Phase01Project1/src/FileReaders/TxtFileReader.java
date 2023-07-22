@@ -2,20 +2,17 @@ package FileReaders;
 
 import Documents.Book;
 import Documents.Document;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TxtFileReader implements FileReader {
     @Override
     public Document readFile(String filePath) {
-         Book book = new Book("","");
+         Book book = null;
         try {
             File file = new File(filePath);
-            if (!hasValidExtension(file)){
-                return book;
-            }
             StringBuilder text = new StringBuilder();
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
@@ -24,9 +21,9 @@ public class TxtFileReader implements FileReader {
             }
             myReader.close();
             book = new Book(file.getName(),text.toString());
-        } catch (Exception e) {
-            System.out.println("Interrupted file");
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found");
+            System.exit(0);
         }
         return book;
     }
@@ -35,10 +32,17 @@ public class TxtFileReader implements FileReader {
     public ArrayList<Document> readFiles(String folderPath) {
         ArrayList<Document> documents = new ArrayList<>();
         File directoryPath = new File(folderPath);
-        File[] filesList = directoryPath.listFiles();
-        assert filesList != null;
-        for(File file : filesList) {
-            documents.add(this.readFile(file.getPath()));
+        try {
+            File[] filesList = directoryPath.listFiles();
+            for (File file : filesList) {
+                if (!hasValidExtension(file)) {
+                    continue;
+                }
+                documents.add(this.readFile(file.getPath()));
+            }
+        } catch (Exception e) {
+            System.out.println("Directory Not Found");
+            System.exit(0);
         }
         return documents;
     }
