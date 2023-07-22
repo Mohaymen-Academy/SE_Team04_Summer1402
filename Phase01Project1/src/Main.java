@@ -23,7 +23,7 @@ public class Main {
         TxtFileReader txtFileReader = new TxtFileReader();
         InvertedIndex invertedIndex = new InvertedIndex(searchQuery, txtFileReader.readFiles(folderPath));
         invertedIndex.fillWordDocument(" \n");
-        AndSearchFilter andSearchFilter = new AndSearchFilter(searchQuery.highPriorityWords, invertedIndex.getWordDocuments(), new ArrayList<>());
+        AndSearchFilter andSearchFilter = new AndSearchFilter(searchQuery.highPriorityWords, invertedIndex.getWordDocuments(), invertedIndex.getDocuments());
         result = andSearchFilter.applyToResult();
         OrSearchFilter orSearchFilter = new OrSearchFilter(searchQuery.lowPriorityWords, invertedIndex.getWordDocuments(), result);
         result = orSearchFilter.applyToResult();

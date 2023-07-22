@@ -9,6 +9,8 @@ public class AndSearchFilter extends SearchFilter{
     @Override
     public ArrayList<Document> handleFilterWords() {
         ArrayList<Document> result = new ArrayList<>();
+        if(filterWords.isEmpty())
+            return result;
         if (!wordDocuments.containsKey(filterWords.get(0))){
             return result;
         }
@@ -26,6 +28,9 @@ public class AndSearchFilter extends SearchFilter{
 
     @Override
     public ArrayList<Document> applyToResult() {
-        return resultDocuments = handleFilterWords();
+        ArrayList<Document> filterDocuments = handleFilterWords();
+        if(!filterDocuments.isEmpty())
+            resultDocuments = filterDocuments;
+        return resultDocuments;
     }
 }
