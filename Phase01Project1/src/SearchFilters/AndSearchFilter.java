@@ -32,7 +32,7 @@ public class AndSearchFilter extends SearchFilter {
     @Override
     public ArrayList<Document> applyToResult() {
         ArrayList<Document> filterDocuments = handleFilterWords();
-        if(!filterDocuments.isEmpty())
+        if(!filterWords.isEmpty())
             resultDocuments = filterDocuments;
         return resultDocuments;
     }
