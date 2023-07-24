@@ -1,4 +1,4 @@
-package Normalizer;
+package main.java.Normalizer;
 
 public class TokenNormalization implements Normalizable {
     private final String[] characterToDelete = {".","&","|",":",";","$","^","%","<",">","{","}","[","]","'",")","(","_"};

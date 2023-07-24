@@ -1,6 +1,8 @@
-import Normalizer.Normalizable;
-import Normalizer.TokenNormalization;
-import Stemmer.PorterStemmer;
+package main.java;
+
+import main.java.Normalizer.Normalizable;
+import main.java.Normalizer.TokenNormalization;
+import main.java.Stemmer.PorterStemmer;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Stemmer;
+package main.java.Stemmer;
 
 import java.util.Locale;
 public class PorterStemmer {

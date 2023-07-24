@@ -1,6 +1,6 @@
-package FileReaders;
+package main.java.FileReaders;
 
-import Documents.Document;
+import main.java.Documents.Document;
 
 import java.io.File;
 import java.util.ArrayList;

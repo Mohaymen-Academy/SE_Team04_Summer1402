@@ -1,7 +1,7 @@
-package FileReaders;
+package main.java.FileReaders;
 
-import Documents.Book;
-import Documents.Document;
+import main.java.Documents.Book;
+import main.java.Documents.Document;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

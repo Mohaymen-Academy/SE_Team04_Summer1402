@@ -1,8 +1,10 @@
-import Documents.Document;
-import FileReaders.TxtFileReader;
-import SearchFilters.AndSearchFilter;
-import SearchFilters.NotSearchFilter;
-import SearchFilters.OrSearchFilter;
+package main.java;
+
+import main.java.Documents.Document;
+import main.java.FileReaders.TxtFileReader;
+import main.java.SearchFilters.AndSearchFilter;
+import main.java.SearchFilters.NotSearchFilter;
+import main.java.SearchFilters.OrSearchFilter;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,7 +1,9 @@
-import Documents.Document;
-import Normalizer.Normalizable;
-import Stemmer.PorterStemmer;
-import Tokenize.Tokenizer;
+package main.java;
+
+import main.java.Documents.Document;
+import main.java.Normalizer.Normalizable;
+import main.java.Stemmer.PorterStemmer;
+import main.java.Tokenize.Tokenizer;
 
 import java.security.InvalidParameterException;
 import java.util.*;
