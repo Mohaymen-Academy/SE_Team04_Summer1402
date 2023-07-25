@@ -13,13 +13,11 @@ public class InvertedIndex {
     private ArrayList<Document> documents;
     private Map<String, ArrayList<Document>> wordDocuments;
     private Normalizable tokenNormalization;
-    private SearchQuery searchQuery;
     private PorterStemmer porterStemmer = new PorterStemmer();
 
-    public InvertedIndex(SearchQuery searchQuery, ArrayList<Document> documents){
+    public InvertedIndex(Normalizable tokenNormalization, ArrayList<Document> documents){
         wordDocuments =  new HashMap<>();
-        this.searchQuery = searchQuery;
-        this.tokenNormalization = searchQuery.tokenNormalization;
+        this.tokenNormalization = tokenNormalization;
         this.documents = documents;
     }
 

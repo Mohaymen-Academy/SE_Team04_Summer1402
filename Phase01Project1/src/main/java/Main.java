@@ -2,7 +2,6 @@ package main.java;
 
 import main.java.Documents.Document;
 import main.java.FileReaders.TxtFileReader;
-import main.java.Normalizer.Normalizable;
 import main.java.Normalizer.TokenNormalization;
 import main.java.SearchFilters.AndSearchFilter;
 import main.java.SearchFilters.NotSearchFilter;
@@ -11,17 +10,13 @@ import main.java.SearchQueryFilter.AndQueryHandler;
 import main.java.SearchQueryFilter.NotQueryHandler;
 import main.java.SearchQueryFilter.OrQueryHandler;
 import main.java.Stemmer.PorterStemmer;
-
-import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    private final static String folderPath = "/Users/hosseinb/Desktop/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
+    private final static String folderPath = "/home/amirack/Code/Java/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
     private static ArrayList<Document> result = new ArrayList<>();
-    private static SearchQuery searchQuery;
     private static String query;
     private static TokenNormalization normalizer;
     private static PorterStemmer stemmer;
@@ -34,7 +29,6 @@ public class Main {
             System.out.println("No Input Query");
             System.exit(0);
         }
-        searchQuery = new SearchQuery(inputQuery);
         query = inputQuery;
         normalizer = new TokenNormalization();
         stemmer = new PorterStemmer();
@@ -42,7 +36,7 @@ public class Main {
 
     public static void setSearchResult(){
         TxtFileReader txtFileReader = new TxtFileReader();
-        InvertedIndex invertedIndex = new InvertedIndex(searchQuery, txtFileReader.readFiles(folderPath));
+        InvertedIndex invertedIndex = new InvertedIndex(normalizer, txtFileReader.readFiles(folderPath));
         try {
             invertedIndex.fillWordDocument("\s\n");
         }catch (Exception e){
@@ -54,7 +48,12 @@ public class Main {
         NotQueryHandler notQueryHandler = new NotQueryHandler();
         andQueryHandler.setHandler(orQueryHandler).setHandler(notQueryHandler);
         for(String token : query.split(" ")){
-            andQueryHandler.handle(token);
+            try {
+                andQueryHandler.handler(token);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                System.exit(0);
+            }
         }
         ArrayList<String> highPriorityWords = stemmer.stemArray(normalizer.normalizeArray(andQueryHandler.queries));
         ArrayList<String> lowPriorityWords = stemmer.stemArray(normalizer.normalizeArray(orQueryHandler.queries));

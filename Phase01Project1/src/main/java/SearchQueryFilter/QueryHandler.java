@@ -2,7 +2,6 @@ package main.java.SearchQueryFilter;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class QueryHandler implements SearchQueryHandler {
 
@@ -16,8 +15,8 @@ public abstract class QueryHandler implements SearchQueryHandler {
             return;
         }
         if(nextHandler == null)
-            throw new InvalidParameterException();
-        nextHandler.handle(token);
+            throw new InvalidParameterException("Invalid input");
+        nextHandler.handler(token);
     }
 
     @Override
