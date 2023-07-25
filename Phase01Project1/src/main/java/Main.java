@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private final static String folderPath = "/home/amirack/Code/Java/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
+    private final static String folderPath = "/Users/hosseinb/Desktop/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
     private static ArrayList<Document> result = new ArrayList<>();
     private static String query;
     private static TokenNormalization normalizer;
@@ -48,6 +48,8 @@ public class Main {
             System.out.println("No Document");
             System.exit(0);
         }
+        EdgeNGram edgeNGram = new EdgeNGram(invertedIndex.getWordDocuments());
+        edgeNGram.fillEdgeWordDocuments(5,5);
         AndQueryHandler andQueryHandler = new AndQueryHandler();
         OrQueryHandler orQueryHandler = new OrQueryHandler();
         NotQueryHandler notQueryHandler = new NotQueryHandler();
@@ -60,14 +62,14 @@ public class Main {
                 System.exit(0);
             }
         }
-        ArrayList<String> highPriorityWords = stemmer.stemArray(normalizer.normalizeArray(andQueryHandler.queries));
-        ArrayList<String> lowPriorityWords = stemmer.stemArray(normalizer.normalizeArray(orQueryHandler.queries));
-        ArrayList<String> redPriorityWords = stemmer.stemArray(normalizer.normalizeArray(notQueryHandler.queries));
-        AndSearchFilter andSearchFilter = new AndSearchFilter(highPriorityWords, invertedIndex.getWordDocuments(), invertedIndex.getDocuments());
+        ArrayList<String> highPriorityWords = (normalizer.normalizeArray(andQueryHandler.queries));
+        ArrayList<String> lowPriorityWords = (normalizer.normalizeArray(orQueryHandler.queries));
+        ArrayList<String> redPriorityWords = (normalizer.normalizeArray(notQueryHandler.queries));
+        AndSearchFilter andSearchFilter = new AndSearchFilter(highPriorityWords, edgeNGram.getEdgeWordDocuments(), invertedIndex.getDocuments());
         result = andSearchFilter.applyToResult();
-        OrSearchFilter orSearchFilter = new OrSearchFilter(lowPriorityWords, invertedIndex.getWordDocuments(), result);
+        OrSearchFilter orSearchFilter = new OrSearchFilter(lowPriorityWords, edgeNGram.getEdgeWordDocuments(), result);
         result = orSearchFilter.applyToResult();
-        NotSearchFilter notSearchFilter = new NotSearchFilter(redPriorityWords, invertedIndex.getWordDocuments(), result);
+        NotSearchFilter notSearchFilter = new NotSearchFilter(redPriorityWords, edgeNGram.getEdgeWordDocuments(), result);
         result = notSearchFilter.applyToResult();
         tfidfCalculator = new TFIDFCalculator(normalizer);
         tfIdfSort(
@@ -81,6 +83,7 @@ public class Main {
         }
         if(result.isEmpty())
             System.out.println("No result found");
+        System.out.println("$ " + result.size());
     }
 
     public static void tfIdfSort(
