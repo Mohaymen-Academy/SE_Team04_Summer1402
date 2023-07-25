@@ -3,6 +3,7 @@ package main.java.Documents;
 public abstract class Document{
     private String name;
     private String text;
+    private double tfIdf;
 
     public Document(String name, String text){
         this.setName(name);
@@ -31,5 +32,13 @@ public abstract class Document{
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setTfIdf(double tfIdf) {
+        this.tfIdf = tfIdf;
+    }
+
+    public double getTfIdf() {
+        return tfIdf;
     }
 }
