@@ -93,8 +93,7 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all
 
 # Ignore Data Set Files
-Phase01Project1/SoftwareBooksDataset
-
+src/main/resources/
 # Created by https://www.toptal.com/developers/gitignore/api/maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=maven
 
