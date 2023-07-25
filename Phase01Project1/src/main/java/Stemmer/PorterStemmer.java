@@ -1,5 +1,7 @@
 package main.java.Stemmer;
 
+import javax.annotation.processing.SupportedOptions;
+import java.util.ArrayList;
 import java.util.Locale;
 public class PorterStemmer {
     /**
@@ -19,6 +21,16 @@ public class PorterStemmer {
         stem = stemStep5b(stem);
         return stem;
     }
+
+    // my shit
+    public ArrayList<String> stemArray(ArrayList<String> words){
+        ArrayList<String> result = new ArrayList<>();
+        for(String word : words){
+            result.add(stemWord(word));
+        }
+        return result;
+    }
+
 
     String stemStep1a(String input) {
         if (input.endsWith("sses")) {

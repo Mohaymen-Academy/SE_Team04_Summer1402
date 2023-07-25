@@ -30,7 +30,7 @@ public class InvertedIndex {
         Tokenizer tokenizer = new Tokenizer();
         for(Document document : documents){
             for(String documentWord : tokenizer.tokenize(document.getText(), delimiter)){
-                documentWord = tokenNormalization.makeNormalize(documentWord);
+                documentWord = tokenNormalization.normalize(documentWord);
                 documentWord = porterStemmer.stemWord(documentWord);
                 if(!wordDocuments.containsKey(documentWord))
                     wordDocuments.put(documentWord, new ArrayList<>());
