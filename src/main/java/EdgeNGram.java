@@ -1,4 +1,6 @@
 import Documents.Document;
+
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class EdgeNGram {
@@ -10,20 +12,20 @@ public class EdgeNGram {
         this.wordDocuments = wordDocuments;
         edgeWordDocuments = new HashMap<>();
     }
+
+
     public void fillEdgeWordDocuments(int min, int max){
         for(String word : wordDocuments.keySet()){
+            ArrayList<String> edgedWords = extractEdgeWords(word, min, max);
             if(!edgeWordDocuments.containsKey(word)){
                 edgeWordDocuments.put(word, wordDocuments.get(word));
             }
-            for(int wordLength = min; wordLength <= max; wordLength++){
-                for(int startIndex = 0; startIndex < word.length() - wordLength + 1; startIndex++){
-                    String slicedString = word.substring(startIndex, startIndex+wordLength);
-                    if(edgeWordDocuments.containsKey(slicedString)){
-                        edgeWordDocuments.get(slicedString).addAll(wordDocuments.get(word));
-                    }
-                    else {
-                        edgeWordDocuments.put(slicedString, wordDocuments.get(word));
-                    }
+            for(String edgedWord : edgedWords){
+                if(edgeWordDocuments.containsKey(edgedWord)){
+                    edgeWordDocuments.get(edgedWord).addAll(wordDocuments.get(word));
+                }
+                else {
+                    edgeWordDocuments.put(edgedWord, wordDocuments.get(word));
                 }
             }
         }
@@ -32,6 +34,21 @@ public class EdgeNGram {
             ArrayList<Document> uniqueDocumentArray = new ArrayList<>(uniqueDocumentsSet);
             edgeWordDocuments.put(word, uniqueDocumentArray);
         }
+    }
+
+    public ArrayList<String> extractEdgeWords(String word, int min, int max){
+        if(max < min || max < 1 || min < 1 || word == null || word.isEmpty()){
+            return new ArrayList<>();
+        }
+        ArrayList<String> result = new ArrayList<>();
+        for(int wordLength = min; wordLength <= max; wordLength++){
+            for(int startIndex = 0; startIndex < word.length() - wordLength + 1; startIndex++){
+                String slicedString = word.substring(startIndex, startIndex+wordLength);
+                if(!result.contains(slicedString))
+                    result.add(slicedString);
+            }
+        }
+        return result;
     }
 
     public Map<String, ArrayList<Document>> getEdgeWordDocuments() {
