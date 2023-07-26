@@ -16,27 +16,23 @@ public class TFIDFCalculator {
     }
     public double tf(Document doc, String term, String delimiter) {
         term = normalizable.normalize(term);
-        double result = 0 , size = 0;
-        for (String word : tokenizer.tokenize(doc.getText(), delimiter)) {
-            if (term.equals(normalizable.normalize(word))){
-                result++;
-            }
-            size++;
-        }
-        return result / size;
+        String finalTerm = term;
+        long result = tokenizer.tokenize(doc.getText(), delimiter).stream()
+                .filter(word -> finalTerm.equals(normalizable.normalize(word)))
+                .count();
+        long size = tokenizer.tokenize(doc.getText(), delimiter).size();
+        return (double) result / size;
     }
+
     public double idf(ArrayList<Document> docs, String term, String delimiter) {
-        double n = 0;
         term = normalizable.normalize(term);
-        for (Document doc : docs) {
-            for (String word : tokenizer.tokenize(doc.getText(), delimiter)) {
-                if (term.equals(normalizable.normalize(word))) {
-                    n++;
-                    break;
-                }
-            }
-        }
-        return Math.log(docs.size() / n);
+        String finalTerm = term;
+        long n = docs.stream()
+                .filter(doc -> tokenizer.tokenize(doc.getText(), delimiter).stream()
+                        .anyMatch(word -> finalTerm.equals(normalizable.normalize(word))))
+                .count();
+
+        return Math.log((double) docs.size() / (n == 0 ? 1 : n));
     }
 
     public double tfIdf(Document doc, ArrayList<Document> docs, String term, String delimiter) {
