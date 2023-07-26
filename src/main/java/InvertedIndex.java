@@ -2,13 +2,17 @@ import Documents.Document;
 import Normalizer.Normalizable;
 import Stemmer.PorterStemmer;
 import Tokenize.Tokenizer;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.security.InvalidParameterException;
 import java.util.*;
 
 public class InvertedIndex {
 
+    @Getter @Setter
     private ArrayList<Document> documents;
+    @Getter
     private Map<String, ArrayList<Document>> wordDocuments;
     private Normalizable tokenNormalization;
     private PorterStemmer porterStemmer = new PorterStemmer();
@@ -38,16 +42,5 @@ public class InvertedIndex {
 
     private boolean isValidDocument(){
         return (documents != null && !documents.isEmpty());
-    }
-    public ArrayList<Document> getDocuments() {
-        return documents;
-    }
-
-    public void setDocuments(ArrayList<Document> documents) {
-        this.documents = documents;
-    }
-
-    public Map<String, ArrayList<Document>> getWordDocuments() {
-        return wordDocuments;
     }
 }

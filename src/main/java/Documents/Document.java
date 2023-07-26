@@ -1,9 +1,14 @@
 package Documents;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public abstract class Document{
+
+    @Getter @Setter
     private String name;
+    @Getter @Setter
     private String text;
-    private double tfIdf;
 
     public Document(String name, String text){
         this.setName(name);
@@ -18,27 +23,4 @@ public abstract class Document{
         return (this.name.equals(document.name));
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setTfIdf(double tfIdf) {
-        this.tfIdf = tfIdf;
-    }
-
-    public double getTfIdf() {
-        return tfIdf;
-    }
 }

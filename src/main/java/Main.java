@@ -1,3 +1,4 @@
+import Documents.Book;
 import TFIDFCalculator.TFIDFCalculator;
 import Documents.Document;
 import FileReaders.TxtFileReader;
@@ -96,11 +97,12 @@ public class Main {
             for (String lowPriorityWord : lowPriorityWords){
                 tfidf += tfidfCalculator.tfIdf(doc,Main.result,lowPriorityWord,"\s\n") * 2;
             }
-            doc.setTfIdf(tfidf);
+            Book book = (Book) doc;
+            book.setTfIdf(tfidf);
         }
         for (int i = 0 ; i < Main.result.size() ; i++){
             for(int j = i+1 ; j < Main.result.size() ; j++){
-                if (Main.result.get(j).getTfIdf() > Main.result.get(i).getTfIdf()){
+                if (((Book)Main.result.get(j)).getTfIdf() > ((Book)Main.result.get(i)).getTfIdf()){
                     Collections.swap(Main.result, i,j);
                 }
             }
