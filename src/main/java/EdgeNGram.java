@@ -37,8 +37,8 @@ public class EdgeNGram {
     }
 
     public ArrayList<String> extractEdgeWords(String word, int min, int max){
-        if(max < min || max < 1 || min < 1 || word == null || word.isEmpty()){
-            return new ArrayList<>();
+        if(max < min || max < 1 || min < 1 || word == null){
+            throw new InvalidParameterException();
         }
         ArrayList<String> result = new ArrayList<>();
         for(int wordLength = min; wordLength <= max; wordLength++){
