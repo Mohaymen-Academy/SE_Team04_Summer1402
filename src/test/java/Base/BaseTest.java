@@ -1,8 +1,10 @@
+package Base;
+
 import Documents.Book;
 import Documents.Document;
 
 import java.util.ArrayList;
-class BaseTest {
+public class BaseTest {
     public ArrayList<Document> documents = new ArrayList<>();
     public void setUp(){
         fillDocuments();

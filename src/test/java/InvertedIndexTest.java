@@ -1,3 +1,4 @@
+import Base.BaseTest;
 import Documents.Book;
 import Documents.Document;
 import Normalizer.TokenNormalization;
@@ -5,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Map;

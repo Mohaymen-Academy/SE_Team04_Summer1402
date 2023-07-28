@@ -1,9 +1,8 @@
-import Documents.Book;
+import Base.BaseTest;
 import Documents.Document;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +10,8 @@ import java.util.Map;
 
 
 
-public class EdgeNGramTest extends BaseTest{
+
+public class EdgeNGramTest extends BaseTest {
 
     public Map<String, ArrayList<Document>> wordDocuments = new HashMap<>();
 

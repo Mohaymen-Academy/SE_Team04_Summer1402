@@ -1,5 +1,6 @@
 package SearchFilters;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Map;
 import Documents.Document;
@@ -12,9 +13,10 @@ public class AndSearchFilter extends SearchFilter {
     @Override
     public ArrayList<Document> handleFilterWords() {
         ArrayList<Document> result = new ArrayList<>();
-        if(filterWords.isEmpty())
+        if(filterWords.isEmpty()) {
             return result;
-        if (!wordDocuments.containsKey(filterWords.get(0))){
+        }
+        else if (!wordDocuments.containsKey(filterWords.get(0))){
             return result;
         }
         result = wordDocuments.get(filterWords.get(0));

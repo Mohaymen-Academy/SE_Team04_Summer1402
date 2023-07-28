@@ -28,7 +28,7 @@ public class Main {
         System.out.println("Search query : ");
         Scanner scanner = new Scanner(System.in);
         String inputQuery = scanner.nextLine();
-        if (inputQuery.equals("")) {
+        if (inputQuery.isEmpty()) {
             System.out.println("No Input Query");
             System.exit(0);
         }
