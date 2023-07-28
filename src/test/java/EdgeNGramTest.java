@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,8 +20,7 @@ public class EdgeNGramTest extends BaseTest {
     @Test
     public void extractEdgeWords_whileLengthLessThanMinAndMax(){
         EdgeNGram edgeNGram = new EdgeNGram(wordDocuments);
-        ArrayList<String> actual = new ArrayList<>();
-        Assertions.assertArrayEquals(edgeNGram.extractEdgeWords("java", 5, 6).toArray(), actual.toArray());
+        Assertions.assertTrue(edgeNGram.extractEdgeWords("java", 5, 6).isEmpty());
     }
 
     @Test
@@ -39,8 +39,7 @@ public class EdgeNGramTest extends BaseTest {
     @Test
     public void extractEdgeWords_whileMinAndMaxAreNotValid(){
         EdgeNGram edgeNGram = new EdgeNGram(wordDocuments);
-        ArrayList<String> actual = new ArrayList<>();
-        Assertions.assertArrayEquals(edgeNGram.extractEdgeWords("", -1, -2).toArray(), actual.toArray());
+        Assertions.assertThrows(InvalidParameterException.class, () -> edgeNGram.extractEdgeWords("", -1, -2).toArray());
     }
 
 }
