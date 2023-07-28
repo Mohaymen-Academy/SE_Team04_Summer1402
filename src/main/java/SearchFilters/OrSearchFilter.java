@@ -1,7 +1,9 @@
 package SearchFilters;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import Documents.Document;
 
 public class OrSearchFilter extends SearchFilter {
@@ -17,7 +19,8 @@ public class OrSearchFilter extends SearchFilter {
                 result.addAll(wordDocuments.get(lowPriorityWord));
             }
         }
-        return result;
+        Set<Document> uniqueResult = new HashSet<>(result);
+        return new ArrayList<>(uniqueResult);
     }
 
     @Override
@@ -26,7 +29,7 @@ public class OrSearchFilter extends SearchFilter {
         if(filterDocuments.isEmpty())
             return resultDocuments;
         if(resultDocuments.isEmpty())
-            return filterDocuments;
+            return resultDocuments;
         resultDocuments.retainAll(filterDocuments);
         return resultDocuments;
     }

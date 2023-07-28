@@ -1,7 +1,9 @@
 package SearchFilters;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import Documents.Document;
 
 public class NotSearchFilter extends SearchFilter {
@@ -17,7 +19,8 @@ public class NotSearchFilter extends SearchFilter {
                 result.addAll(wordDocuments.get(redPriorityWord));
             }
         }
-        return result;
+        Set<Document> uniqueResult = new HashSet<>(result);
+        return new ArrayList<>(uniqueResult);
     }
 
     @Override

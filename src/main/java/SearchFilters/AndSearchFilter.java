@@ -1,6 +1,5 @@
 package SearchFilters;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Map;
 import Documents.Document;
@@ -35,7 +34,7 @@ public class AndSearchFilter extends SearchFilter {
     public ArrayList<Document> applyToResult() {
         ArrayList<Document> filterDocuments = handleFilterWords();
         if(!filterWords.isEmpty())
-            resultDocuments = filterDocuments;
+            resultDocuments.retainAll(filterDocuments);
         return resultDocuments;
     }
 }
