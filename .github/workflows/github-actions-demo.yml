@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [Phase05, main]
+on:
+  push:
+    branches: [ main, Phase05 ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
