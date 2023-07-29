@@ -54,4 +54,9 @@ class TFIDFCalculatorTest extends BaseTest {
         double Expected = this.documents.size() / 2;
         Assertions.assertEquals(Math.log(Expected), result);
     }
+
+    @Test
+    void testWorkflow(){
+        Assertions.assertTrue(false);
+    }
 }
