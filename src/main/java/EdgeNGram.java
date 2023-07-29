@@ -8,11 +8,11 @@ public class EdgeNGram {
 
     private Map<String, ArrayList<Document>> edgeWordDocuments;
     public Map<String, ArrayList<Document>> wordDocuments;
+
     public EdgeNGram(Map<String, ArrayList<Document>> wordDocuments){
         this.wordDocuments = wordDocuments;
         edgeWordDocuments = new HashMap<>();
     }
-
 
     public void fillEdgeWordDocuments(int min, int max){
         for(String word : wordDocuments.keySet()){

@@ -9,15 +9,14 @@ public class AndSearchFilter extends SearchFilter {
     public AndSearchFilter(ArrayList<String> filterWords, Map<String, ArrayList<Document>> wordDocuments, ArrayList<Document> resultDocuments){
         super(filterWords, wordDocuments, resultDocuments);
     }
+
     @Override
     public ArrayList<Document> handleFilterWords() {
         ArrayList<Document> result = new ArrayList<>();
-        if(filterWords.isEmpty()) {
+        if(filterWords.isEmpty())
             return result;
-        }
-        else if (!wordDocuments.containsKey(filterWords.get(0))){
+        else if (!wordDocuments.containsKey(filterWords.get(0)))
             return result;
-        }
         result = wordDocuments.get(filterWords.get(0));
         for (String highPriorityWord : filterWords) {
             if (wordDocuments.containsKey(highPriorityWord)) {

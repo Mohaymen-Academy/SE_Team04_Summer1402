@@ -27,7 +27,9 @@ class TFIDFCalculatorTest extends BaseTest {
     void tf_checkReturnTypeAndValueWhenPatternFound() {
         Document book = this.documents.get(0);
         Mockito.when(normalizableMock.normalize("test")).thenReturn("test");
-        double result = tfidfCalculator.tf(book,"test","\s\n");
+        book.getWordCounter().put("test",1L);
+        book.setTextWordQuantity(3L);
+        double result = tfidfCalculator.tf(book,"test");
         Assertions.assertInstanceOf(Double.class,result);
         Assertions.assertEquals(0.3333333333333333, result);
     }
@@ -36,7 +38,8 @@ class TFIDFCalculatorTest extends BaseTest {
     void tf_checkReturnTypeAndValueWhenNoPatternFound(){
         Document book = this.documents.get(0);
         Mockito.when(normalizableMock.normalize("test2")).thenReturn("test2");
-        double result = tfidfCalculator.tf(book,"test2","\s\n");
+        book.setTextWordQuantity(4L);
+        double result = tfidfCalculator.tf(book,"test2");
         Assertions.assertInstanceOf(Double.class,result);
         Assertions.assertEquals(0, result);
     }
@@ -44,9 +47,11 @@ class TFIDFCalculatorTest extends BaseTest {
     @Test
     void idf_checkReturnTypeAndValueWhenTwoDocHaveTheWord() {
         Mockito.when(normalizableMock.normalize("code")).thenReturn("code");
-        double result = tfidfCalculator.idf(this.documents,"code","\s\n");
+        documents.get(1).getWordCounter().put("code", 1L);
+        documents.get(3).getWordCounter().put("code", 3L);
+        double result = tfidfCalculator.idf(this.documents,"code");
         Assertions.assertInstanceOf(Double.class,result);
-        double Expected = this.documents.size() / 2.0;
+        double Expected = this.documents.size() / 2;
         Assertions.assertEquals(Math.log(Expected), result);
     }
 }

@@ -2,17 +2,19 @@ package Documents;
 
 import lombok.Getter;
 import lombok.Setter;
+import java.util.HashMap;
 
+@Getter @Setter
 public abstract class Document{
-
-    @Getter @Setter
     private String name;
-    @Getter @Setter
     private String text;
+    private Long textWordQuantity;
+    private HashMap<String,Long> wordCounter;
 
     public Document(String name, String text){
         this.setName(name);
         this.setText(text);
+        wordCounter = new HashMap<>();
     }
 
     public boolean hasWord(String word){
@@ -20,7 +22,6 @@ public abstract class Document{
     }
 
     public boolean equals(Document document) {
-        return (this.name.equals(document.name));
+        return this.name.equals(document.name);
     }
-
 }
