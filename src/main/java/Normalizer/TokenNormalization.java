@@ -3,7 +3,7 @@ package Normalizer;
 import java.util.ArrayList;
 
 public class TokenNormalization implements Normalizable {
-    private final String[] characterToDelete = {"/",".","&","|",":",";","$","@","^","%","<",">","{","}","[","]","'",")","(","_","-","?","!","~"};
+    private final String[] characterToDelete = {"/",".","&","|",":",";","$","@","^","%","<",">","{","}","[","]","'",")","(","_","-","?","!","~",",","*","\"", "'", "`", "\t"};
     private final String[] uselessWords = {"i","the","we","is","and","an","a"};
 
 
