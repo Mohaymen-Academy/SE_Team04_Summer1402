@@ -9,18 +9,15 @@ import SearchFilters.OrSearchFilter;
 import SearchQueryFilter.AndQueryHandler;
 import SearchQueryFilter.NotQueryHandler;
 import SearchQueryFilter.OrQueryHandler;
-import Stemmer.PorterStemmer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
-    private final static String folderPath = "/Users/hosseinb/Desktop/SE_Team04_Summer1402/Phase01Project1/SoftwareBooksDataset";
+    private final static String folderPath = "/home/amirack/Code/Java/SE_Team04_Summer1402/src/main/resources/SoftwareBooksDataset";
     private static ArrayList<Document> result = new ArrayList<>();
+    private static ArrayList<Book> sortedResult = new ArrayList<>();
     private static String query;
     private static TokenNormalization normalizer;
-    private static PorterStemmer stemmer;
     private static TFIDFCalculator tfidfCalculator;
     private static ArrayList<Document> documents;
 
@@ -28,13 +25,12 @@ public class Main {
         System.out.println("Search query : ");
         Scanner scanner = new Scanner(System.in);
         String inputQuery = scanner.nextLine();
-        if (inputQuery.equals("")) {
+        if (inputQuery.isEmpty()) {
             System.out.println("No Input Query");
             System.exit(0);
         }
         query = inputQuery;
         normalizer = new TokenNormalization();
-        stemmer = new PorterStemmer();
     }
 
     public static void setSearchResult(){
@@ -77,36 +73,26 @@ public class Main {
         );
     }
     public static void printSearchResult(){
-        for(Document doc : result){
-            System.out.println(doc.getName());
+        for(Book book : sortedResult){
+            System.out.println(book.getName());
         }
         if(result.isEmpty())
             System.out.println("No result found");
         System.out.println("$ " + result.size());
     }
 
-    public static void tfIdfSort(
-            ArrayList<String> highPriorityWords,
-            ArrayList<String> lowPriorityWords
-    ){
+    public static void tfIdfSort(ArrayList<String> highPriorityWords, ArrayList<String> lowPriorityWords){
         for (Document doc : Main.result){
             double tfidf = 0;
-            for (String highPriorityWord : highPriorityWords){
-                tfidf += tfidfCalculator.tf(doc,highPriorityWord,"\s\n") * 3;
-            }
-            for (String lowPriorityWord : lowPriorityWords){
-                tfidf += tfidfCalculator.tfIdf(doc,Main.result,lowPriorityWord,"\s\n") * 2;
-            }
+            for (String highPriorityWord : highPriorityWords)
+                tfidf += tfidfCalculator.tf(doc,highPriorityWord) * 3;
+            for (String lowPriorityWord : lowPriorityWords)
+                tfidf += tfidfCalculator.tfIdf(doc,Main.result,lowPriorityWord) * 2;
             Book book = (Book) doc;
             book.setTfIdf(tfidf);
+            sortedResult.add(book);
         }
-        for (int i = 0 ; i < Main.result.size() ; i++){
-            for(int j = i+1 ; j < Main.result.size() ; j++){
-                if (((Book)Main.result.get(j)).getTfIdf() > ((Book)Main.result.get(i)).getTfIdf()){
-                    Collections.swap(Main.result, i,j);
-                }
-            }
-        }
+        sortedResult.sort(Book.tfIdfComparator);
     }
 
     public static void main(String[] args) {

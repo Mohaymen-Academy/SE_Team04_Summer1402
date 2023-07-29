@@ -1,7 +1,6 @@
 package FileReaders;
 
 import Documents.Document;
-
 import java.io.File;
 import java.util.ArrayList;
 

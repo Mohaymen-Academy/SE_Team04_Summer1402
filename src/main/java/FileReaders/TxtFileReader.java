@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TxtFileReader implements FileReader {
+
     @Override
     public Document readFile(String filePath) {
          Book book = null;
