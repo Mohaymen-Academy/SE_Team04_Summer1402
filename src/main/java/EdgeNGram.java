@@ -1,10 +1,8 @@
 import Documents.Document;
-
 import java.security.InvalidParameterException;
 import java.util.*;
 
 public class EdgeNGram {
-
 
     private Map<String, ArrayList<Document>> edgeWordDocuments;
     public Map<String, ArrayList<Document>> wordDocuments;
