@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Main {
 
-    private final static String folderPath = "/home/amirack/Code/Java/SE_Team04_Summer1402/src/main/resources/SoftwareBooksDataset";
+    private final static String folderPath = "/Users/hosseinb/Desktop/SE_Team04_Summer1402/src/main/resources/SoftwareBooksDataset";
     private static ArrayList<Document> result = new ArrayList<>();
     private static ArrayList<Book> sortedResult = new ArrayList<>();
     private static String query;

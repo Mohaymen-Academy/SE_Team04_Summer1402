@@ -18,7 +18,7 @@ class InvertedIndexTest extends BaseTest {
     @BeforeEach
     public void setUp(){
         documents.add(new Book("book1", "Chapter 9 I Can’t Get This Class into a Test Harness"));
-        documents.add(new Book("book2", "java,code,design,clean,search,SOLID,unit?!"));
+        documents.add(new Book("book2", "java,code,design,clean,search,SOLID,unit?"));
     }
 
     @Test
