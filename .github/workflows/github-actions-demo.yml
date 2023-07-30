@@ -37,13 +37,3 @@ jobs:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
 #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 #        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Mohaymen-Academy_SE_Team04_Summer1402
-
-      - name: Generate JaCoCo Badge
-        uses: cicirello/jacoco-badge-generator@v2
-        with:
-          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
-          badges-directory: build/reports/jacoco/test/html/badges
-      - name: Publish coverage report to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build/reports/jacoco/test/html
