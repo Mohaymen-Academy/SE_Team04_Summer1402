@@ -24,7 +24,7 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ 170e6d74392fb554b5e80d05afc37ea2049c7896 }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn verify sonar:sonar \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.organization=mohaymen-academy \
