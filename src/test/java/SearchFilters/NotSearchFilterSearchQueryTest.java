@@ -1,18 +1,17 @@
 package SearchFilters;
 
-import Base.BaseTest;
+import Base.BaseSearchQueryTest;
 import Documents.Document;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Not;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NotSearchFilterTest extends BaseTest {
+public class NotSearchFilterSearchQueryTest extends BaseSearchQueryTest {
 
     private ArrayList<String> filterWords;
     private Map<String, ArrayList<Document>> wordDocuments;

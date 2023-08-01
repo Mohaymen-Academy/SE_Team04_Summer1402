@@ -1,4 +1,4 @@
-import Base.BaseTest;
+import Base.BaseSearchQueryTest;
 import Normalizer.TokenNormalization;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TokenNormalizationTest extends BaseTest {
+public class TokenNormalizationSearchQueryTest extends BaseSearchQueryTest {
 
     private TokenNormalization tokenNormalization;
 

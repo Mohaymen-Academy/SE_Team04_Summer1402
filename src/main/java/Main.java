@@ -1,4 +1,3 @@
-import Database.DatabaseConnector;
 import Database.UserEntityQuery;
 import Documents.Book;
 import Entity.UserEntity;
@@ -12,16 +11,9 @@ import SearchFilters.OrSearchFilter;
 import SearchQueryFilter.AndQueryHandler;
 import SearchQueryFilter.NotQueryHandler;
 import SearchQueryFilter.OrQueryHandler;
-import org.postgresql.ds.PGSimpleDataSource;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.MessageFormat;
 import java.util.*;
-import javax.sql.DataSource;
-import org.postgresql.ds.PGSimpleDataSource;
 
 public class Main {
 
@@ -121,7 +113,7 @@ public class Main {
                 "Hosein",
                 "1234"
         );
-        UserEntityQuery.addNewUser(userEntity);
+//        UserEntityQuery.addNewUser(userEntity);
         UserEntity userEntity2 = new UserEntity(
                 "hosein",
                 new Timestamp(System.currentTimeMillis()),
@@ -132,6 +124,7 @@ public class Main {
                 "amir",
                 "4321"
         );
-        UserEntityQuery.addNewUser(userEntity2);
+//        UserEntityQuery.addNewUser(userEntity2);
+        UserEntityQuery.updateUserBioByUsername("amirack", "this is update command");
     }
 }

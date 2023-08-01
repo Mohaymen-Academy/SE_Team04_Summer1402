@@ -1,6 +1,6 @@
 package SearchFilters;
 
-import Base.BaseTest;
+import Base.BaseSearchQueryTest;
 import Documents.Document;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AndSearchFilterTest extends BaseTest {
+public class AndSearchFilterSearchQueryTest extends BaseSearchQueryTest {
 
     private ArrayList<String> filterWords;
     private Map<String, ArrayList<Document>> wordDocuments;

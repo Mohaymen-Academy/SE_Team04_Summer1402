@@ -1,4 +1,4 @@
-import Base.BaseTest;
+import Base.BaseSearchQueryTest;
 import Documents.Document;
 import Normalizer.Normalizable;
 import Normalizer.TokenNormalization;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 
-class TFIDFCalculatorTest extends BaseTest {
+class TFIDFCalculatorSearchQueryTest extends BaseSearchQueryTest {
     Normalizable normalizableMock = mock(TokenNormalization.class);
     TFIDFCalculator tfidfCalculator = new TFIDFCalculator(normalizableMock);
     @BeforeEach

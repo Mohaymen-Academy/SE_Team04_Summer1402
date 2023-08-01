@@ -1,4 +1,4 @@
-import Base.BaseTest;
+import Base.BaseSearchQueryTest;
 import Documents.Book;
 import Documents.Document;
 import Normalizer.TokenNormalization;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InvertedIndexTest extends BaseTest {
+class InvertedIndexSearchQueryTest extends BaseSearchQueryTest {
 
     @Override
     @BeforeEach

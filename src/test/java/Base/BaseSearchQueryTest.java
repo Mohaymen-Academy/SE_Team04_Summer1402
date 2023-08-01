@@ -4,7 +4,7 @@ import Documents.Book;
 import Documents.Document;
 import java.util.ArrayList;
 
-public class BaseTest {
+public class BaseSearchQueryTest {
     public ArrayList<Document> documents = new ArrayList<>();
     public void setUp(){
         fillDocuments();

@@ -1,4 +1,4 @@
-import Base.BaseTest;
+import Base.BaseSearchQueryTest;
 import SearchQueryFilter.AndQueryHandler;
 import SearchQueryFilter.NotQueryHandler;
 import SearchQueryFilter.OrQueryHandler;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
-class QueryHandlerTest extends BaseTest {
+class QueryHandlerSearchQueryTest extends BaseSearchQueryTest {
 
     AndQueryHandler andQueryHandler = new AndQueryHandler();
     OrQueryHandler orQueryHandler = new OrQueryHandler();

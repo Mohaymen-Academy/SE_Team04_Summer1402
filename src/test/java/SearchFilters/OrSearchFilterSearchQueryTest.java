@@ -1,20 +1,17 @@
 package SearchFilters;
 
-import Base.BaseTest;
+import Base.BaseSearchQueryTest;
 import Documents.Document;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Or;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrSearchFilterTest extends BaseTest {
+public class OrSearchFilterSearchQueryTest extends BaseSearchQueryTest {
 
     private ArrayList<String> filterWords;
     private Map<String, ArrayList<Document>> wordDocuments;

@@ -1,4 +1,4 @@
-import Base.BaseTest;
+import Base.BaseSearchQueryTest;
 import Documents.Document;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 
-public class EdgeNGramTest extends BaseTest {
+public class EdgeNGramSearchQueryTest extends BaseSearchQueryTest {
 
     public Map<String, ArrayList<Document>> wordDocuments = new HashMap<>();
 
