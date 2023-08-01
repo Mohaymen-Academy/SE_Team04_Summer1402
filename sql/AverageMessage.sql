@@ -1,0 +1,5 @@
+SELECT user_id, COUNT(message_id)
+FROM messages
+WHERE user_id = 10
+  AND (sent_at BETWEEN CURRENT_TIMESTAMP - INTERVAL '110 MINUTES' AND CURRENT_TIMESTAMP)
+GROUP BY user_id;

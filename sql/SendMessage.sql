@@ -1,2 +1,2 @@
 INSERT INTO messages (user_id, content, chat_id)
-VALUES (1, 'hey wassup', '1');
+VALUES (11, 'how u doing', 1);
