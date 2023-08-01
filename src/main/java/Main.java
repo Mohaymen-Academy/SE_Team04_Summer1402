@@ -1,4 +1,7 @@
+import Database.DatabaseConnector;
+import Database.UserEntityQuery;
 import Documents.Book;
+import Entity.UserEntity;
 import TFIDFCalculator.TFIDFCalculator;
 import Documents.Document;
 import FileReaders.TxtFileReader;
@@ -9,11 +12,20 @@ import SearchFilters.OrSearchFilter;
 import SearchQueryFilter.AndQueryHandler;
 import SearchQueryFilter.NotQueryHandler;
 import SearchQueryFilter.OrQueryHandler;
+import org.postgresql.ds.PGSimpleDataSource;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.*;
+import javax.sql.DataSource;
+import org.postgresql.ds.PGSimpleDataSource;
 
 public class Main {
 
-    private final static String folderPath = "/Users/hosseinb/Desktop/SE_Team04_Summer1402/src/main/resources/SoftwareBooksDataset";
+    private final static String folderPath = "/home/amirack/Code/Java/SE_Team04_Summer1402/src/main/resources/SoftwareBooksDataset";
     private static ArrayList<Document> result = new ArrayList<>();
     private static ArrayList<Book> sortedResult = new ArrayList<>();
     private static String query;
@@ -95,9 +107,31 @@ public class Main {
         sortedResult.sort(Book.tfIdfComparator);
     }
 
-    public static void main(String[] args) {
-        getInput();
-        setSearchResult();
-        printSearchResult();
+    public static void main(String[] args) throws SQLException {
+//        getInput();
+//        setSearchResult();
+//        printSearchResult();\
+        UserEntity userEntity = new UserEntity(
+                "amirack",
+                new Timestamp(System.currentTimeMillis()),
+                "bio",
+                "09353355339",
+                " ",
+                "Amir",
+                "Hosein",
+                "1234"
+        );
+        UserEntityQuery.addNewUser(userEntity);
+        UserEntity userEntity2 = new UserEntity(
+                "hosein",
+                new Timestamp(System.currentTimeMillis()),
+                "bio",
+                "09210851073",
+                " ",
+                "hosein",
+                "amir",
+                "4321"
+        );
+        UserEntityQuery.addNewUser(userEntity2);
     }
 }
