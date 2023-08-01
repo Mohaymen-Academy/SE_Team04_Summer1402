@@ -2,15 +2,11 @@ package Database;
 
 import Entity.UserEntity;
 import com.google.common.hash.Hashing;
-
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UserEntityQuery {
-    private static void createTabelIfNotExist(Connection connection){
+    private static void createTableIfNotExist(Connection connection) {
         try (Statement stmt = connection.createStatement()) {
             String tableSql = "CREATE TABLE IF NOT EXISTS users"
                     + "(user_id SERIAL PRIMARY KEY," +
@@ -28,15 +24,15 @@ public class UserEntityQuery {
         }
     }
 
-    public static void addNewUser(UserEntity userEntity){
+    public static void addNewUser(UserEntity userEntity) {
         Connection connection = DatabaseConnector.getDBConnection();
-        createTabelIfNotExist(connection);
+        createTableIfNotExist(connection);
         insertNewUser(userEntity, connection);
     }
 
-    private static void insertNewUser(UserEntity userEntity , Connection connection){
+    private static void insertNewUser(UserEntity userEntity, Connection connection) {
         PreparedStatement stmt = null;
-        try{
+        try {
             String hashPassword = Hashing.sha256()
                     .hashString(userEntity.getPassword(), StandardCharsets.UTF_8)
                     .toString();
@@ -57,7 +53,49 @@ public class UserEntityQuery {
         }
     }
 
-//    public static boolean authenticateUser(String username, String password){
-//
-//    }
+    public static boolean authenticateUser(String username, String password) {
+        Connection connection = DatabaseConnector.getDBConnection();
+        String hashPassword = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+        try {
+            Statement stmt = connection.createStatement();
+            PreparedStatement selectSql = connection.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
+            selectSql.setString(1,username);
+            selectSql.setString(2,hashPassword);
+            ResultSet resultSet = stmt.executeQuery(selectSql.toString());
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteUserByUsername(String username, String password) {
+        Connection connection = DatabaseConnector.getDBConnection();
+        if (!authenticateUser(username, password)){
+            System.out.println("Wrong name or password!");
+            return;
+        }
+        try {
+            Statement stmt = connection.createStatement();
+            PreparedStatement deleteSql = connection.prepareStatement("DELETE FROM users WHERE username = ?");
+            deleteSql.setString(1,username);
+            stmt.execute(deleteSql.toString());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateUserBioByUsername(String username, String bio) {
+        Connection connection = DatabaseConnector.getDBConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            PreparedStatement updateSql = connection.prepareStatement("UPDATE users SET bio = ? WHERE username = ?");
+            updateSql.setString(2,username);
+            updateSql.setString(1,bio);
+            stmt.execute(updateSql.toString());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
