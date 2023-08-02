@@ -1,12 +1,13 @@
 package Database;
 
-import Entity.UserEntity;
+import Entity.User;
 import com.google.common.hash.Hashing;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
-public class UserEntityQuery {
+public class UserQuery {
     private static void createTableIfNotExist(Connection connection) {
+
         try (Statement stmt = connection.createStatement()) {
             String tableSql = "CREATE TABLE IF NOT EXISTS users"
                     + "(user_id SERIAL PRIMARY KEY," +
@@ -24,13 +25,15 @@ public class UserEntityQuery {
         }
     }
 
-    public static void addNewUser(UserEntity userEntity) {
+    public static void addNewUser(User userEntity) {
+
         Connection connection = DatabaseConnector.getDBConnection();
         createTableIfNotExist(connection);
         insertNewUser(userEntity, connection);
     }
 
-    private static void insertNewUser(UserEntity userEntity, Connection connection) {
+    private static void insertNewUser(User userEntity, Connection connection) {
+
         PreparedStatement stmt = null;
         try {
             String hashPassword = Hashing.sha256()
@@ -54,6 +57,7 @@ public class UserEntityQuery {
     }
 
     public static boolean authenticateUser(String username, String password) {
+
         Connection connection = DatabaseConnector.getDBConnection();
         String hashPassword = Hashing.sha256()
                 .hashString(password, StandardCharsets.UTF_8)
@@ -71,11 +75,13 @@ public class UserEntityQuery {
     }
 
     public static void deleteUserByUsername(String username, String password) {
+
         Connection connection = DatabaseConnector.getDBConnection();
         if (!authenticateUser(username, password)){
             System.out.println("Wrong name or password!");
             return;
         }
+
         try {
             Statement stmt = connection.createStatement();
             PreparedStatement deleteSql = connection.prepareStatement("DELETE FROM users WHERE username = ?");
@@ -87,6 +93,7 @@ public class UserEntityQuery {
     }
 
     public static void updateUserBioByUsername(String username, String bio) {
+
         Connection connection = DatabaseConnector.getDBConnection();
         try {
             Statement stmt = connection.createStatement();

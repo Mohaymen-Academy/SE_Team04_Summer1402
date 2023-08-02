@@ -1,6 +1,4 @@
-import Database.UserEntityQuery;
 import Documents.Book;
-import Entity.UserEntity;
 import TFIDFCalculator.TFIDFCalculator;
 import Documents.Document;
 import FileReaders.TxtFileReader;
@@ -12,7 +10,6 @@ import SearchQueryFilter.AndQueryHandler;
 import SearchQueryFilter.NotQueryHandler;
 import SearchQueryFilter.OrQueryHandler;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.*;
 
 public class Main {
@@ -100,31 +97,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws SQLException {
-//        getInput();
-//        setSearchResult();
-//        printSearchResult();\
-        UserEntity userEntity = new UserEntity(
-                "amirack",
-                new Timestamp(System.currentTimeMillis()),
-                "bio",
-                "09353355339",
-                " ",
-                "Amir",
-                "Hosein",
-                "1234"
-        );
-//        UserEntityQuery.addNewUser(userEntity);
-        UserEntity userEntity2 = new UserEntity(
-                "hosein",
-                new Timestamp(System.currentTimeMillis()),
-                "bio",
-                "09210851073",
-                " ",
-                "hosein",
-                "amir",
-                "4321"
-        );
-//        UserEntityQuery.addNewUser(userEntity2);
-        UserEntityQuery.updateUserBioByUsername("amirack", "this is update command");
+        getInput();
+        setSearchResult();
+        printSearchResult();
     }
 }
