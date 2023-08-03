@@ -73,6 +73,11 @@ public class HibernateTest {
         }
     }
 
+    @Test
+    public void get_relations_databse(){
+
+    }
+
     @AfterEach
     protected void tearDown(){
         if ( sessionFactory != null ) {
