@@ -22,7 +22,7 @@ public class ChatQuery {
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
 
-            chat = session.load(Chat.class, chatId);
+            chat = session.get(Chat.class, chatId);
 
             session.remove(chat);
 

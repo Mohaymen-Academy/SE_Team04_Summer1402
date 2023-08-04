@@ -24,7 +24,7 @@ public class UserQuery {
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
 
-            user = session.load(User.class, user_id);
+            user = session.get(User.class, user_id);
 
             session.remove(user);
 
@@ -38,7 +38,7 @@ public class UserQuery {
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
 
-            user = session.load(User.class, user_id);
+            user = session.get(User.class, user_id);
             user.setBio(newBio);
 
             session.getTransaction().commit();
