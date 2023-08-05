@@ -65,9 +65,12 @@ public class MessageQuery {
 
     public static Long getNumberOfAllMessageOfUser(SessionFactory sessionFactory, Long user_id){
         try(Session session = sessionFactory.openSession()){
-            Query q=session.createNativeQuery("SELECT COUNT(message_id) FROM messages WHERE user_id=:i", Message.class);
-            q.setParameter("i",user_id);
-            return (Long)q.uniqueResult();
+            session.beginTransaction();
+
+            List<Long> result = session.createQuery("select count(m.id) from Message m where m.userId = ?1 group by userId", Long.class).setParameter(1, user_id).getResultList();
+            session.getTransaction().commit();
+
+            return result.get(0);
         }
     }
 

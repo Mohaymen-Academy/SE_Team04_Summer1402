@@ -1,3 +1,4 @@
+import Entity.Message;
 import Query.MessageQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -24,5 +25,6 @@ public class Main {
 
     public static void main(String[] args) {
         configureDatabase();
+        System.out.println(MessageQuery.getNumberOfAllMessageOfUser(sessionFactory, 10L));
     }
 }

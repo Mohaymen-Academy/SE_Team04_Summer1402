@@ -29,10 +29,10 @@ public class Message {
 
     }
 
-    public Message(Long userId, Long chatId, String context){
+    public Message(Long userId, Long chatId, String content){
         this.userId = userId;
         this.chatId = chatId;
-        this.content = context;
+        this.content = content;
         this.sentAt = Instant.now();
         this.viewCount = 0;
     }
