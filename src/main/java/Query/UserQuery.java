@@ -18,13 +18,13 @@ public class UserQuery {
         }
     }
 
-    public static void deleteUserById(SessionFactory sessionFactory, Long user_id){
+    public static void deleteUserById(SessionFactory sessionFactory, Long userId){
         User user = null;
 
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
 
-            user = session.get(User.class, user_id);
+            user = session.get(User.class, userId);
 
             session.remove(user);
 
@@ -32,13 +32,13 @@ public class UserQuery {
         }
     }
 
-    public static void changeBioById(SessionFactory sessionFactory, Long user_id, String newBio){
+    public static void changeBioById(SessionFactory sessionFactory, Long userId, String newBio){
         User user = null;
 
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
 
-            user = session.get(User.class, user_id);
+            user = session.get(User.class, userId);
             user.setBio(newBio);
 
             session.getTransaction().commit();
