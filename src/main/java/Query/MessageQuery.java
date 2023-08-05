@@ -32,9 +32,15 @@ public class MessageQuery {
     }
 
     public static Message getMessageById(SessionFactory sessionFactory, Long message_id){
+        Message message = null;
+
         try(Session session = sessionFactory.openSession()){
-            return session.get(Message.class, message_id);
+            session.beginTransaction();
+            message = session.get(Message.class, message_id);
+            session.getTransaction().commit();
         }
+
+        return message;
     }
 
     public static void editMessage(SessionFactory sessionFactory, Long message_id, String context){

@@ -18,7 +18,7 @@ public class Message {
     private Long userId;
     @Column(name = "chat_id")
     private Long chatId;
-    private String context;
+    private String content;
     private String media;
     @Column(name = "view_count")
     private int viewCount;
@@ -32,7 +32,7 @@ public class Message {
     public Message(Long userId, Long chatId, String context){
         this.userId = userId;
         this.chatId = chatId;
-        this.context = context;
+        this.content = context;
         this.sentAt = Instant.now();
         this.viewCount = 0;
     }

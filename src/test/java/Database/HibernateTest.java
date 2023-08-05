@@ -12,6 +12,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import java.util.List;
 
 public class HibernateTest {
 
@@ -75,6 +76,15 @@ public class HibernateTest {
 
     @Test
     public void get_relations_databse(){
+
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+
+            List<Subscription> subs = session.createQuery("select s from Subscription s where chatId = ?1",  Subscription.class).list();
+            subs.forEach(System.out::println);
+
+            session.getTransaction().commit();
+        }
 
     }
 
